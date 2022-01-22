@@ -7,3 +7,42 @@ class ProductPage(BasePage):
         add_button = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BUTTON)
         add_button.click()
 
+    def should_be_product_name(self):
+        print("product name test")
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME), f"Product Name not presented"
+
+    def should_be_product_price(self):
+        print("product price test")
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), f"Product Price not presented"
+
+    def should_be_succes_product_name(self):
+        print("product name notification test")
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_NAME), f"Product Name notification not presented"
+
+    def should_be_succes_product_price(self):
+        print("product price notification test")
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_PRICE), f"Product Price notification not presented"
+
+    def is_success_name_correct(self):
+        name_1 = self.get_product_name()
+        name_2 = self.get_success_product_name()
+        print(f"resulting product name correctness test \'{name_1}\' -- \'{name_2}\' ")
+        assert name_1 == name_2 , f"Resulting Product Name mismatched"
+
+    def is_success_price_correct(self):
+        price_1 = self.get_product_price()
+        price_2 = self.get_success_product_price()
+        print(f"resulting product price correctness test \'{price_1}\' -- \'{price_2}\' ")
+        assert price_1 == price_2 , f"Resulting Product Price mismatched"
+
+    def get_product_price(self):
+        return self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
+
+    def get_product_name(self):
+        return self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
+
+    def get_success_product_price(self):
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_PRODUCT_PRICE).text
+
+    def get_success_product_name(self):
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_PRODUCT_NAME).text
