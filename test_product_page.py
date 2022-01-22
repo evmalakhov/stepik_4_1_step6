@@ -6,6 +6,36 @@ import pytest
 
 
 
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
+        page = LoginPage(browser, link)
+        page.open()
+        email = str(time.time()) + "@fakemail.org"
+        passwd = str(time.time())
+        page.register_new_user(email, passwd)
+        page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_product_name()
+
+    @pytest.mark.need_review
+    def test_user_can_add_product_to_basket(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        page.should_be_product_name()
+        page.should_be_product_price()
+        page.should_be_succes_product_name()
+        page.should_be_succes_product_price()
+        page.is_success_name_correct()
+        page.is_success_price_correct()
+
 def __test_guest_cant_see_success_message(browser):
     link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
     page = ProductPage(browser, link)
