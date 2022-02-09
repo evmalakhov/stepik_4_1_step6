@@ -1,8 +1,8 @@
 # Stepik Auto Tests Course
 
-## lesson 4.1 step 6
+## Final task
 
-https://stepik.org/lesson/199980/step/6?unit=174035
+https://stepik.org/lesson/201964/step/15?unit=176022
 
 Course: Test automation using Selenium & Python
 https://stepik.org/course/575

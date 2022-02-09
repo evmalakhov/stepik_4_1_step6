@@ -6,10 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
 import math
-import time
 
 class BasePage():
-
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
@@ -18,7 +16,6 @@ class BasePage():
     def should_be_authorized_user(self):
         assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
                                                                     " probably unauthorised user"
-
     def go_to_basket_page(self):
         button = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
         button.click()
@@ -28,7 +25,7 @@ class BasePage():
         link.click()
 
     def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), f"Login link is not presented"
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
     def is_element_present(self, how, what):
         try:
@@ -39,12 +36,9 @@ class BasePage():
 
     def is_not_element_present(self, how, what, timeout=4):
         try:
-            print("is not element present")
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
-            print("is not element present -- not found, timeout")
             return True
-        print("is not element present -- found")
         return False
 
     def is_disappeared(self, how, what, timeout=4):
@@ -58,19 +52,16 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
-
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
-        # print("\nanswer: ", answer)
-        # time.sleep(2)
         alert.send_keys(answer)
         alert.accept()
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text
-            print(f"Your code: {alert_text}")
+            print("Your code: ", alert_text)
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")

@@ -16,20 +16,16 @@ class ProductPage(BasePage):
             "Success message is presented, but should disappear"
 
     def should_be_product_name(self):
-        print("product name test")
-        assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME), f"Product Name not presented"
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME), "Product Name not presented"
 
     def should_be_product_price(self):
-        print("product price test")
-        assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), f"Product Price not presented"
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), "Product Price not presented"
 
     def should_be_succes_product_name(self):
-        print("product name notification test")
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_NAME), f"Product Name notification not presented"
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_NAME), "Product Name notification not presented"
 
     def should_be_succes_product_price(self):
-        print("product price notification test")
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_PRICE), f"Product Price notification not presented"
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_PRODUCT_PRICE), "Product Price notification not presented"
 
     def is_success_name_correct(self):
         name_1 = self.get_product_name()

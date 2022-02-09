@@ -15,9 +15,7 @@ class BasketPage(BasePage):
         msg = self.browser.find_element(*BasketPageLocators.EMPTY_MESSAGE)
         lang = self.browser.execute_script(
             "return window.navigator.userLanguage || window.navigator.language")
-        print("LANG: ", lang)
-        lang = 'en'
-        assert lang_msg[lang] == msg.text, f'Text in basket empty message field is incorrect "{msg.text}"'
+        assert (lang_msg[lang] == msg.text) or (lang_msg['en'] == msg.text), f'Text in basket empty message field is incorrect "{msg.text}"'
 
     def should_not_be_basket_summary(self):
         assert self.is_not_element_present(*BasketPageLocators.BASKET_SUMMARY), \
